@@ -1,0 +1,11 @@
+/Users/hvo135/Dev/repo/apigee4j/core/src/main/java/com/teliacompany/apigee4j/core/ApigeeOAuth2ExchangeFilter.java
+/Users/hvo135/Dev/repo/apigee4j/core/src/main/java/com/teliacompany/apigee4j/core/client/ApigeeClientConfig.java
+/Users/hvo135/Dev/repo/apigee4j/core/src/main/java/com/teliacompany/apigee4j/core/config/ApigeeWebClientAutoConfiguration.java
+/Users/hvo135/Dev/repo/apigee4j/core/src/main/java/com/teliacompany/apigee4j/core/ApigeeAuthenticationException.java
+/Users/hvo135/Dev/repo/apigee4j/core/src/main/java/com/teliacompany/apigee4j/core/config/ApigeeEnvironmentResolver.java
+/Users/hvo135/Dev/repo/apigee4j/core/src/main/java/com/teliacompany/apigee4j/core/ApigeeProxyHelper.java
+/Users/hvo135/Dev/repo/apigee4j/core/src/main/java/com/teliacompany/apigee4j/core/ApigeeOAuth2Service.java
+/Users/hvo135/Dev/repo/apigee4j/core/src/main/java/com/teliacompany/apigee4j/core/ApigeeController.java
+/Users/hvo135/Dev/repo/apigee4j/core/src/main/java/com/teliacompany/apigee4j/core/config/ApigeeConnectionConfig.java
+/Users/hvo135/Dev/repo/apigee4j/core/src/main/java/com/teliacompany/apigee4j/core/OAuth2Response.java
+/Users/hvo135/Dev/repo/apigee4j/core/src/main/java/com/teliacompany/apigee4j/core/client/AbstractApigeeClient.java

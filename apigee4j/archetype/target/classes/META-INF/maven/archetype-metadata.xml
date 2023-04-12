@@ -1,0 +1,53 @@
+<archetype-descriptor
+        xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd
+        http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
+        xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        name="microprofile12">
+    <id>apigee4j-archetype</id>
+
+    <requiredProperties>
+        <requiredProperty key="artifactId">
+            <defaultValue>apigee4j-${api-name}</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="api-name"></requiredProperty>
+        <requiredProperty key="api-major-version">
+            <validationRegex><![CDATA[^[0-9]+$]]></validationRegex>
+        </requiredProperty>
+
+        <requiredProperty key="groupId">
+            <defaultValue>com.teliacompany.apigee4j</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="version">
+            <defaultValue>1.0.0-SNAPSHOT</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="apigee-path" />
+        <requiredProperty key="sit-apigee-path" />
+
+    </requiredProperties>
+
+
+    <fileSets>
+        <fileSet filtered="true" packaged="false">
+            <directory>src/main/resources</directory>
+            <includes>
+                <include>**/*.properties</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" packaged="true">
+            <directory>src/main/java</directory>
+            <includes>
+                <include>**/*.java</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" packaged="false">
+            <directory />
+            <includes>
+                <include>README.md</include>
+                <include>Jenkinsfile</include>
+                <include>.gitignore</include>
+                <include>todo_then_remove_me_be4_commit.md</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</archetype-descriptor>

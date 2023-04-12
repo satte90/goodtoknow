@@ -1,0 +1,11 @@
+library 'BuildPipelineUtils'
+library 'springfield-pipeline-steps'
+
+buildPipeline {
+    promoteOnBranch = /master/
+    uploadModules = true
+    autoSetVersions = true
+    interactivePromote = false
+    coverityEnabled = true
+    mattermostChannel = "augustus-build"
+}

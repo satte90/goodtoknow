@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<wsdl:definitions name="GetAddressService" targetNamespace="http://services.addressmaster.telia.se"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://services.addressmaster.telia.se"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:types>
+        <xs:schema targetNamespace="http://services.addressmaster.telia.se" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <xs:complexType name="address">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="boxnr" type="xs:string"/>
+                    <xs:element minOccurs="0" name="felkod" type="xs:string"/>
+                    <xs:element minOccurs="0" name="format" type="xs:string"/>
+                    <xs:element minOccurs="0" name="gatnr" type="xs:string"/>
+                    <xs:element minOccurs="0" name="gatunamn" type="xs:string"/>
+                    <xs:element minOccurs="0" name="ingang" type="xs:string"/>
+                    <xs:element minOccurs="0" name="lghnr" type="xs:string"/>
+                    <xs:element minOccurs="0" name="postnr" type="xs:string"/>
+                    <xs:element minOccurs="0" name="postort" type="xs:string"/>
+                    <xs:element minOccurs="0" name="punktid" type="xs:string"/>
+                    <xs:element minOccurs="0" name="trappantal" type="xs:string"/>
+                    <xs:element minOccurs="0" name="tvth" type="xs:string"/>
+                    <xs:element minOccurs="0" name="uppgang" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="GetAddressFromPunktID">
+        <wsdl:part name="adr" type="tns:address">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="GetAddressResponse">
+        <wsdl:part name="return" type="tns:address">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="GetAddress">
+        <wsdl:part name="adr" type="tns:address">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="GetAddressFromPunktIDResponse">
+        <wsdl:part name="return" type="tns:address">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="GetAddressServicePortType">
+        <wsdl:operation name="GetAddressFromPunktID">
+            <wsdl:input message="tns:GetAddressFromPunktID" name="GetAddressFromPunktID">
+            </wsdl:input>
+            <wsdl:output message="tns:GetAddressFromPunktIDResponse" name="GetAddressFromPunktIDResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetAddress">
+            <wsdl:input message="tns:GetAddress" name="GetAddress">
+            </wsdl:input>
+            <wsdl:output message="tns:GetAddressResponse" name="GetAddressResponse">
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="GetAddressServiceSoapBinding" type="tns:GetAddressServicePortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="GetAddressFromPunktID">
+            <soap:operation soapAction="" style="rpc"/>
+            <wsdl:input name="GetAddressFromPunktID">
+                <soap:body namespace="http://services.addressmaster.telia.se" use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetAddressFromPunktIDResponse">
+                <soap:body namespace="http://services.addressmaster.telia.se" use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetAddress">
+            <soap:operation soapAction="" style="rpc"/>
+            <wsdl:input name="GetAddress">
+                <soap:body namespace="http://services.addressmaster.telia.se" use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetAddressResponse">
+                <soap:body namespace="http://services.addressmaster.telia.se" use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="GetAddressService">
+        <wsdl:port binding="tns:GetAddressServiceSoapBinding" name="GetAddressServicePort">
+            <soap:address location="http://am002addrtst.gad.teliasonera.net:8083/amws/Address/GetAddressService"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

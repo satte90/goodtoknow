@@ -1,0 +1,11 @@
+com/teliacompany/apigee4j/core/ApigeeAuthenticationException.class
+com/teliacompany/apigee4j/core/config/ApigeeWebClientAutoConfiguration.class
+com/teliacompany/apigee4j/core/config/ApigeeEnvironmentResolver.class
+com/teliacompany/apigee4j/core/ApigeeController.class
+com/teliacompany/apigee4j/core/config/ApigeeConnectionConfig.class
+com/teliacompany/apigee4j/core/ApigeeOAuth2ExchangeFilter.class
+com/teliacompany/apigee4j/core/client/ApigeeClientConfig.class
+com/teliacompany/apigee4j/core/ApigeeProxyHelper.class
+com/teliacompany/apigee4j/core/ApigeeOAuth2Service.class
+com/teliacompany/apigee4j/core/client/AbstractApigeeClient.class
+com/teliacompany/apigee4j/core/OAuth2Response.class

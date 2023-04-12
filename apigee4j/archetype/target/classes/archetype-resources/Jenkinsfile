@@ -1,0 +1,12 @@
+library 'BuildPipelineUtils'
+library 'springfield-pipeline-steps'
+
+buildPipeline {
+    promoteOnBranch = /master/
+    uploadModules = true
+    autoSetVersions = true
+    interactivePromote = false
+    coverityEnabled = true
+    # Todo: Set this to your build channel
+    mattermostChannel = "TODO"
+}

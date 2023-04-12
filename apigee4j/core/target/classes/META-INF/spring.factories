@@ -1,0 +1,5 @@
+org.springframework.context.ApplicationListener=\
+    com.teliacompany.apigee4j.core.config.ApigeeEnvironmentResolver
+
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.teliacompany.apigee4j.core.config.ApigeeWebClientAutoConfiguration

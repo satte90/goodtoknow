@@ -1,0 +1,51 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.teliacompany.apigee4j</groupId>
+        <artifactId>apigee4j-parent</artifactId>
+        <version>1.0.0</version> <!-- TODO: Update to latest version. Pro-tip run mvn compile and check bumper result -->
+    </parent>
+
+    <artifactId>apigee4j-${api-name}</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>apigee4j :: ${api-name}</name>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.teliacompany.apigee4j</groupId>
+            <artifactId>apigee4j-core</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>apigee4j-${api-name}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>com.teliacompany.apigee4j</groupId>
+                <artifactId>apigee4j-plugin</artifactId>
+                <version>3.0.0</version> <!-- TODO: Update to latest version. It may differ from parent version -->
+                <executions>
+                    <execution>
+                        <id>generate-api</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <apiName>${api-name}</apiName>
+                            <apiModelPrefix /> <!-- Set to an acronym of the API to add it as prefix to all model classes (<apiModelPrefix>C2bc</apiModelPrefix> ==> Stuff.java -> C2bcStuff.java) -->
+                            <!-- TODO: This is likely wrong, json files should match camel case in api name rather than the endpoint which is usually all lower case) -->
+                            <versions>
+                                <v${api-major-version}>${sit-apigee-path}</v${api-major-version}>
+                            </versions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

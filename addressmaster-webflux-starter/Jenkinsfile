@@ -1,0 +1,27 @@
+library 'springfield-pipeline-steps_v2'
+
+springfieldPipeline {
+    maven = [
+        javaVersion: '11',
+        junitReports: "*/target/surefire-reports/*.xml",
+        cucumberReports: "*/target/cucumber-report/",
+        uploadModules: true,
+        promoteOnBranch: /master/,
+        autoSetVersions: true
+    ]
+
+     notifications = [
+        personal: [
+            onFail: false,
+            onRegression: true, // overrides "onFail" if regression
+            onSuccess: false
+        ],
+        channels: [
+            "augustus-build": [
+                onFail: true,
+                onRegression: true,
+                onSuccess: true
+            ]
+        ]
+    ]
+}

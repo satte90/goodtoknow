@@ -1,0 +1,14 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+        <ns1:GetAddressResponse xmlns:ns1="http://services.addressmaster.telia.se">
+            <return>
+                <felkod>0</felkod>
+                <gatnr>2</gatnr>
+                <gatunamn>GRAN</gatunamn>
+                <postnr>93494</postnr>
+                <postort>KÅGE</postort>
+                <punktid>105985717</punktid>
+            </return>
+        </ns1:GetAddressResponse>
+    </soap:Body>
+</soap:Envelope>
