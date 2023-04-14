@@ -1,0 +1,29 @@
+# THIS IS THE DEFAULT VALUE FILE
+# Values here are passed to the sub-chart named springfield-springboot
+springfield-springboot:
+  ingress:
+    app:
+      rewriteTarget: /
+      hosts:
+        "localhost":
+          - path: /tiberius/user
+  resources:
+    limits:
+      memory: 1Gi
+    requests:
+      memory: 1Gi
+  defaultJavaOpts:
+    - "-DK8S_POD_NAME=$(K8S_POD_NAME)"
+    - "-XX:NativeMemoryTracking=summary"
+    - "-XX:MaxRAMPercentage=40.0"
+    - "-Dlog4j.configurationFile=classpath:log4j2.xml"
+    - "-Dhazelcast.shutdownhook.policy=GRACEFUL"
+    - "-Dhazelcast.graceful.shutdown.max.wait=30"
+    #These are for Hazelcast
+    - "--add-modules java.se"
+    - "--add-exports java.base/jdk.internal.ref=ALL-UNNAMED"
+    - "--add-opens java.base/java.lang=ALL-UNNAMED"
+    - "--add-opens java.base/java.nio=ALL-UNNAMED"
+    - "--add-opens java.base/sun.nio.ch=ALL-UNNAMED"
+    - "--add-opens java.management/sun.management=ALL-UNNAMED"
+    - "--add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED"

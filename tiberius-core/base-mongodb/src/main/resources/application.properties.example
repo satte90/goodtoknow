@@ -1,0 +1,5 @@
+tiberius.mongodb.user=tiberius-appname
+tiberius.mongodb.password=super-secret-password
+tiberius.mongodb.host=tiberius-mongodb.tse.svc.cluster.local
+tiberius.mongodb.port=27017
+tiberius.mongodb.database=tiberius-appname-at

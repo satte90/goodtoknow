@@ -1,0 +1,46 @@
+@startuml
+skinparam monochrome true
+
+participant frontend as fe
+participant TiberiusSecurityContextRepository as scr
+participant TiberiusJwtAuthenticationManager as jam
+participant DefaultPublicKeyProvider as pkp
+participant TiberiusUserAuthClient as c
+participant TiberiusAuthKeyUtils as au
+participant TiberiusAuthJwtsUtils as ju
+participant tiberius_user_auth as tua
+
+note right of fe
+Flow between classes in tiberius core, fe and tiberius-user-auth
+Represents "green" flow only.
+If any errors occur during jwt validation a 401 is thrown.
+end note
+
+== generic call via GW ==
+autonumber
+fe -> scr: anyCall()
+scr -> scr: getJwtFromAuthorizationHeader()
+scr -> jam: authenticate(TiberiusToken.unverified(jwt))
+jam -> ju: parseKeyId(jwt)
+ju -> jam: keyId
+
+alt publicKey for keyId cached
+jam -> pkp: getPublicKey(keyId)
+pkp -> jam: publicKey
+else publicKey not cached
+jam -> pkp: getPublicKey(keyId)
+pkp -> c: getKey(keyId)
+c -> tua: GET: signingkeys/{id}
+tua -> c: public base64 encoded key
+c -> pkp: base64Key
+pkp -> au: convertPublicKey(base64Key)
+au -> pkp: PublicKey
+pkp -> pkp: cache key
+pkp -> jam: PublicKey
+
+end
+jam -> ju: validateSignedJwt(publicKey, jwt)
+ju -> jam: jwt claims
+jam -> scr: TiberiusToken.verified(jwt, tcad, role)
+
+@enduml

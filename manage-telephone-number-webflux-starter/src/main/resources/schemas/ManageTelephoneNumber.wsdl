@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:ns2="http://www.teliasonera.com/gesb/resources/messageProperties.xsd" xmlns:ns1="http://www.teliasonera.com/gesb/resources/usageIdentification.xsd" xmlns:tns="http://www.teliasonera.com/gesb/ws/telephoneNumberService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns0="http://www.teliasonera.com/gesb/resources/TelephoneNumberInfo.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Untitled" targetNamespace="http://www.teliasonera.com/gesb/ws/telephoneNumberService">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.teliasonera.com/gesb/resources/usageIdentification.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:import namespace="http://www.teliasonera.com/gesb/resources/TelephoneNumberInfo.xsd"/>
+            <xs:import namespace="http://www.teliasonera.com/gesb/resources/messageProperties.xsd"/>
+            <xs:complexType name="UsageIdentificationType">
+                <xs:sequence>
+                    <xs:element name="numberOwningCrm" type="xs:string" minOccurs="0"/>
+                    <xs:element name="userId" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="usageIdentification" type="ns1:UsageIdentificationType"/>
+        </xs:schema>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.teliasonera.com/gesb/resources/TelephoneNumberInfo.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:import namespace="http://www.teliasonera.com/gesb/resources/messageProperties.xsd"/>
+            <xs:import namespace="http://www.teliasonera.com/gesb/resources/usageIdentification.xsd"/>
+            <xs:complexType name="RequestType">
+                <xs:sequence>
+                    <xs:element name="Properties" type="ns2:MessagePropertiesType"/>
+                    <xs:element name="UsageIdentification" type="ns1:UsageIdentificationType" minOccurs="0"/>
+                    <xs:element name="Request" type="ns0:TelephoneNumberRequestType"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="RequestTypeDetails">
+                <xs:sequence>
+                    <xs:element name="Properties" type="ns2:MessagePropertiesType"/>
+                    <xs:element name="UsageIdentification" type="ns1:UsageIdentificationType" minOccurs="0"/>
+                    <xs:element name="Request" type="ns0:TelephoneNumberDetailsRequestType"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="RequestTypeModify">
+                <xs:sequence>
+                    <xs:element name="Properties" type="ns2:MessagePropertiesType"/>
+                    <xs:element name="UsageIdentification" type="ns1:UsageIdentificationType" minOccurs="0"/>
+                    <xs:element name="Request" type="ns0:ModifyTelephoneNumberRequestType"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="RequestTypeReserve">
+                <xs:sequence>
+                    <xs:element name="Properties" type="ns2:MessagePropertiesType"/>
+                    <xs:element name="UsageIdentification" type="ns1:UsageIdentificationType" minOccurs="0"/>
+                    <xs:element name="Request" type="ns0:ReserveTelephoneNumberRequestType"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="GetAvaliableTelephoneNumbersRequest" type="ns0:RequestType"/>
+            <xs:element name="GetAvaliableTelephoneNumbersResponse" type="ns0:TelephoneNumberResponseType"/>
+            <xs:element name="GetTelephoneNumberDetailsRequest" type="ns0:RequestTypeDetails"/>
+            <xs:element name="GetTelephoneNumberDetailsResponse" type="ns0:TelephoneNumberDetailsResponseType"/>
+            <xs:element name="ModifyTelephoneNumberRequest" type="ns0:RequestTypeModify"/>
+            <xs:element name="ModifyTelephoneNumberResponse" type="ns0:ModifyTelephoneNumberResponseType"/>
+            <xs:element name="ReserveTelephoneNumberRequest" type="ns0:RequestTypeReserve"/>
+            <xs:element name="ReserveTelephoneNumberResponse" type="ns0:ReserveTelephoneNumberResponseType"/>
+            <xs:complexType name="ModifyTelephoneNumberRequestType">
+                <xs:sequence>
+                    <xs:element name="Identifier">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="TelephoneNumber" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Status" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ModifyTelephoneNumberResponseType">
+                <xs:sequence>
+                    <xs:element name="ResponseStatus" type="ns0:ResponseStatus"/>
+                    <xs:element name="UsageIdentification" type="ns0:UsageIdentificationType" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ReserveTelephoneNumberRequestType">
+                <xs:sequence>
+                    <xs:element name="Identifier">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="TelephoneNumber" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="ReservationDate" type="xs:string" minOccurs="0"/>
+                    <xs:element name="NumberReference" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ReserveTelephoneNumberResponseType">
+                <xs:sequence>
+                    <xs:element name="ResponseStatus" type="ns0:ResponseStatus"/>
+                    <xs:element name="UsageIdentification" type="ns0:UsageIdentificationType" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ResponseStatus">
+                <xs:sequence>
+                    <xs:element name="Code" type="xs:string"/>
+                    <xs:element name="Source" type="xs:string" minOccurs="0"/>
+                    <xs:element name="Description" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="TelephoneNumberDetails">
+                <xs:sequence>
+                    <xs:element name="TelephoneNumber" type="xs:string" minOccurs="0"/>
+                    <xs:element name="PrimeNumber" type="xs:string" minOccurs="0"/>
+                    <xs:element name="DomainID" type="xs:string" minOccurs="0"/>
+                    <xs:element name="OwnedByCRMsystem" type="xs:string" minOccurs="0"/>
+                    <xs:element name="NumberDomainAlias" type="xs:string" minOccurs="0"/>
+                    <xs:element name="UsageAreaName" type="xs:string" minOccurs="0"/>
+                    <xs:element name="UsageAreaNumber" type="xs:string" minOccurs="0"/>
+                    <xs:element name="NumberType" type="xs:string" minOccurs="0"/>
+                    <xs:element name="CollectionName" type="xs:string" minOccurs="0"/>
+                    <xs:element name="Status" type="xs:string" minOccurs="0"/>
+                    <xs:element name="LatencyCodeEnumeration" type="xs:string" minOccurs="0"/>
+                    <xs:element name="LatencyCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="StatusName" type="xs:string" minOccurs="0"/>
+                    <xs:element name="EndDate" type="xs:string" minOccurs="0"/>
+                    <xs:element name="NumberReference" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="TelephoneNumberDetailsListType">
+                <xs:sequence>
+                    <xs:element name="TelephoneNumberDetails" type="ns0:TelephoneNumberDetails" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="TelephoneNumberDetailsRequestType">
+                <xs:sequence>
+                    <xs:element name="Identifier">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="TelephoneNumber" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="TelephoneNumberDetailsResponseType">
+                <xs:sequence>
+                    <xs:element name="ResponseStatus" type="ns0:ResponseStatus"/>
+                    <xs:element name="UsageIdentification" type="ns0:UsageIdentificationType" minOccurs="0"/>
+                    <xs:element name="TelephoneNumberDetailsList" type="ns0:TelephoneNumberDetailsListType" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="TelephoneNumberListType">
+                <xs:sequence>
+                    <xs:element name="TelephoneNumber" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="TelephoneNumberRequestType">
+                <xs:sequence>
+                    <xs:element name="Identifier">
+                        <xs:complexType>
+                            <xs:choice>
+                                <xs:element name="Address">
+                                    <xs:complexType>
+                                        <xs:sequence>
+                                            <xs:element name="StreetName" type="xs:string"/>
+                                            <xs:element name="StreetNumber" type="xs:string"/>
+                                            <xs:element name="Entrance" type="xs:string" minOccurs="0"/>
+                                            <xs:element name="PostalCode" type="xs:string" minOccurs="0"/>
+                                            <xs:element name="Apartment" type="xs:string" minOccurs="0"/>
+                                            <xs:element name="City" type="xs:string"/>
+                                        </xs:sequence>
+                                    </xs:complexType>
+                                </xs:element>
+                                <xs:element name="PointID" type="xs:string"/>
+                            </xs:choice>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="TelephoneNumberFilter" type="xs:string"/>
+                    <xs:element name="QuantityToReturn" type="xs:string"/>
+                    <xs:element name="StartIndex" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="TelephoneNumberResponseType">
+                <xs:sequence>
+                    <xs:element name="ResponseStatus" type="ns0:ResponseStatus"/>
+                    <xs:element name="UsageIdentification" type="ns0:UsageIdentificationType" minOccurs="0"/>
+                    <xs:element name="TelephoneNumberList" type="ns0:TelephoneNumberListType"/>
+                    <xs:element name="EndIndex" type="xs:string"/>
+                    <xs:element name="EndOfList" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="UsageIdentificationType">
+                <xs:sequence>
+                    <xs:element name="numberOwningCrm" type="xs:string" minOccurs="0"/>
+                    <xs:element name="userId" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="TelephoneNumberDetailsRequest" type="ns0:TelephoneNumberDetailsRequestType"/>
+            <xs:element name="TelephoneNumberDetailsResponse" type="ns0:TelephoneNumberDetailsResponseType"/>
+            <xs:element name="TelephoneNumberModifyRequest" type="ns0:ModifyTelephoneNumberRequestType"/>
+            <xs:element name="TelephoneNumberModifyResponse" type="ns0:ModifyTelephoneNumberResponseType"/>
+            <xs:element name="TelephoneNumberRequest" type="ns0:TelephoneNumberRequestType"/>
+            <xs:element name="TelephoneNumberReserveRequest" type="ns0:ReserveTelephoneNumberRequestType"/>
+            <xs:element name="TelephoneNumberReserveResponse" type="ns0:ReserveTelephoneNumberResponseType"/>
+            <xs:element name="TelephoneNumberResponse" type="ns0:TelephoneNumberResponseType"/>
+        </xs:schema>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.teliasonera.com/gesb/resources/messageProperties.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:import namespace="http://www.teliasonera.com/gesb/resources/TelephoneNumberInfo.xsd"/>
+            <xs:import namespace="http://www.teliasonera.com/gesb/resources/usageIdentification.xsd"/>
+            <xs:complexType name="MessagePropertiesType">
+                <xs:sequence>
+                    <xs:element name="msgID" type="xs:string" minOccurs="0"/>
+                    <xs:element name="msgCorrelationID" type="xs:string" minOccurs="0"/>
+                    <xs:element name="msgSource" type="xs:string" minOccurs="0"/>
+                    <xs:element name="msgDestination" type="xs:string" minOccurs="0"/>
+                    <xs:element name="msgState" type="xs:string" minOccurs="0"/>
+                    <xs:element name="msgType" type="xs:string" minOccurs="0"/>
+                    <xs:element name="msgBOD" type="xs:string" minOccurs="0"/>
+                    <xs:element name="msgBODReleaseAndVersion" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="properties" type="ns2:MessagePropertiesType"/>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:service name="ManageTelephoneNumberService.serviceagent">
+        <wsdl:port name="manageTelephoneNumberPortTypeEndpoint1" binding="tns:manageTelephoneNumberPortTypeEndpoint1Binding">
+            <soap:address location="http://sehan9321asipl3.han.telia.se:63094/Services/ManageTelephoneNumber"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="manageTelephoneNumberPortType">
+        <wsdl:operation name="GetTelephoneNumberDetails">
+            <wsdl:input message="tns:GetTelephoneNumberDetailsRequest"/>
+            <wsdl:output message="tns:GetTelephoneNumberDetailsResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="ReserveTelephoneNumber">
+            <wsdl:input message="tns:ReserveTelephoneNumberRequest"/>
+            <wsdl:output message="tns:ReserveTelephoneNumberResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="ModifyTelephoneNumber">
+            <wsdl:input message="tns:ModifyTelephoneNumberRequest"/>
+            <wsdl:output message="tns:ModifyTelephoneNumberResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetAvailableTelephoneNumbers">
+            <wsdl:input message="tns:GetAvaliableTelephoneNumbersRequest"/>
+            <wsdl:output message="tns:GetAvaliableTelephoneNumbersResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="manageTelephoneNumberPortTypeEndpoint1Binding" type="tns:manageTelephoneNumberPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="GetTelephoneNumberDetails">
+            <soap:operation style="document" soapAction="GetTelephoneNumberDetails"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Request"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Response"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ReserveTelephoneNumber">
+            <soap:operation style="document" soapAction="ReserveTelephoneNumber"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Request"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Response"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ModifyTelephoneNumber">
+            <soap:operation style="document" soapAction="ModifyTelephoneNumber"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Request"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Response"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetAvailableTelephoneNumbers">
+            <soap:operation style="document" soapAction="GetAvailableTelephoneNumbers"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Request"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Response"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="GetTelephoneNumberDetailsRequest">
+        <wsdl:part name="Request" element="ns0:GetTelephoneNumberDetailsRequest"/>
+    </wsdl:message>
+    <wsdl:message name="GetTelephoneNumberDetailsResponse">
+        <wsdl:part name="Response" element="ns0:GetTelephoneNumberDetailsResponse"/>
+    </wsdl:message>
+    <wsdl:message name="ReserveTelephoneNumberRequest">
+        <wsdl:part name="Request" element="ns0:ReserveTelephoneNumberRequest"/>
+    </wsdl:message>
+    <wsdl:message name="ReserveTelephoneNumberResponse">
+        <wsdl:part name="Response" element="ns0:ReserveTelephoneNumberResponse"/>
+    </wsdl:message>
+    <wsdl:message name="ModifyTelephoneNumberRequest">
+        <wsdl:part name="Request" element="ns0:ModifyTelephoneNumberRequest"/>
+    </wsdl:message>
+    <wsdl:message name="ModifyTelephoneNumberResponse">
+        <wsdl:part name="Response" element="ns0:ModifyTelephoneNumberResponse"/>
+    </wsdl:message>
+    <wsdl:message name="GetAvaliableTelephoneNumbersRequest">
+        <wsdl:part name="Request" element="ns0:GetAvaliableTelephoneNumbersRequest"/>
+    </wsdl:message>
+    <wsdl:message name="GetAvaliableTelephoneNumbersResponse">
+        <wsdl:part name="Response" element="ns0:GetAvaliableTelephoneNumbersResponse"/>
+    </wsdl:message>
+</wsdl:definitions>

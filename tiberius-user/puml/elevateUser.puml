@@ -1,0 +1,43 @@
+@startuml
+skinparam monochrome true
+        autonumber
+        title Flow for work items
+        hide footbox
+        actor User as u
+        participant OurTelia as ot
+        participant TiberiusUser as tu
+        participant ACE as ace
+        participant TiberiusCustomerAuth as tca
+
+        u->ace: Closes previous work item or takes new call
+        ace->tu: DELETE /elevaterole/{tcad}
+        note over ace,tu: To ensure elevation is not active for calls
+
+        ace->tu: POST /elevaterole/{tcad} 
+        ace->u: Work item is assigned to agent
+        u->ot: Searches customer
+
+
+        participant TiberiusCustomer as tc
+        participant i413 as i
+        ot->tc: /lookup/{id}
+        tc->i: Fetch customers
+        i->tc: List of customers
+        tc->ot: List of customers
+        note over ot, tc: Include callerID in select
+        ot->tc: /select/{id}
+
+
+        ot->tu: GET /user/{tcad} or /elevaterole/{tcad}
+        tu->ot: Success/fail
+        note over tu,ot: Responds with the elevated role and expiresAt
+        
+        alt Elevated role is 2nd line
+          ot->tca: Vouch NOAUTH
+          ot->u: Opens customer overview
+          note over u,ot: User now has access to search any\ncustomer within the expiry time
+        else No elevated role found
+          ot->u: searchCustomer.puml in tiberius-customer-auth
+          ' !include searchCustomer.puml
+        end
+@enduml

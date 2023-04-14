@@ -1,0 +1,10 @@
+{
+  "delta": [
+    {
+      "accessGranted": true,
+      "expiresAt": 1607427785000,
+      "tcad": "tcad_testGetDeltaAccess"
+    }
+  ],
+  "timestamp": 1607427783000
+}

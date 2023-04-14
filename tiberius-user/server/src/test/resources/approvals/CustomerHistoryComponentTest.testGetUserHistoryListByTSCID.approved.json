@@ -1,0 +1,68 @@
+[
+  {
+    "identificationMethod": "TBA",
+    "role": "UNKNOWN",
+    "tcad": "abc0010",
+    "timestamp": 1607428440.000000000
+  },
+  {
+    "identificationMethod": "TBA",
+    "role": "UNKNOWN",
+    "tcad": "abc009",
+    "timestamp": 1607428380.000000000
+  },
+  {
+    "identificationMethod": "TBA",
+    "role": "UNKNOWN",
+    "tcad": "abc008",
+    "timestamp": 1607428320.000000000
+  },
+  {
+    "identificationMethod": "TBA",
+    "role": "UNKNOWN",
+    "tcad": "abc007",
+    "timestamp": 1607428260.000000000
+  },
+  {
+    "identificationMethod": "TBA",
+    "role": "UNKNOWN",
+    "tcad": "abc006",
+    "timestamp": 1607428200.000000000
+  },
+  {
+    "identificationMethod": "TBA",
+    "role": "UNKNOWN",
+    "tcad": "abc005",
+    "timestamp": 1607428140.000000000
+  },
+  {
+    "identificationMethod": "TBA",
+    "role": "UNKNOWN",
+    "tcad": "abc004",
+    "timestamp": 1607428080.000000000
+  },
+  {
+    "identificationMethod": "TBA",
+    "role": "UNKNOWN",
+    "tcad": "abc003",
+    "timestamp": 1607428020.000000000
+  },
+  {
+    "identificationMethod": "TBA",
+    "role": "UNKNOWN",
+    "tcad": "abc002",
+    "timestamp": 1607427960.000000000
+  },
+  {
+    "identificationMethod": "TBA",
+    "role": "UNKNOWN",
+    "tcad": "abc001",
+    "timestamp": 1607427900.000000000
+  },
+  {
+    "identificationMethod": "TBA",
+    "role": "UNKNOWN",
+    "tcad": "abc000",
+    "timestamp": 1607427840.000000000
+  }
+]

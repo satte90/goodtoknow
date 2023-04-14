@@ -1,0 +1,70 @@
+<Configuration status="info" name="example" packages="">
+    <Appenders>
+        <!-- Default service appender. Note that the name="default" is important. This name must have
+             the same name as the ones used in services if they override this file. -->
+        <Console name="default" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%-5level] %d{ISO8601} --- [%16.16t] - [%mdc{transactionId}] - [%mdc{tcad}] - [%mdc{tscid}] - %-40.40c{1.}: %m%n"/>
+        </Console>
+        <Console name="appName" target="SYSTEM_OUT">
+            <PatternLayout pattern="%n************************************************************%n%m%n************************************************************%n%n"/>
+        </Console>
+        <Console name="startup" target="SYSTEM_OUT">
+            <PatternLayout pattern="%m%n"/>
+        </Console>
+        <RollingFile name="serviceLogFile" fileName="logs/service.log" filePattern="logs/service-%d{MM-dd-yyyy}.log">
+            <PatternLayout pattern='{ "appName":"${sys:application.name}", "appVersion":"${sys:application.version}", "level":"%level", "time":"%d{ISO8601}", "thread":"%t", "transactionId":"%mdc{transactionId}", "loggerName":"%c{1.}", "tcad":"%mdc{tcad}", "tscid":"%mdc{tscid}", "message":"%enc{%m}{JSON}" }%n' />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="3"/>
+        </RollingFile>
+
+        <!-- Spring boot exception logger -->
+        <RollingFile name="serviceErrorLogFile" fileName="logs/service.log" filePattern="logs/service-%d{MM-dd-yyyy}.log">
+            <PatternLayout alwaysWriteExceptions="false" pattern='{ "appName":"${sys:application.name}", "appVersion":"${sys:application.version}", "level":"%level", "time":"%d{ISO8601}", "thread":"%t", "transactionId":"%mdc{transactionId}", "loggerName":"%c{1.}", "tcad":"%mdc{tcad}", "tscid":"%mdc{tscid}", "exception":"%enc{%ex{short}}{JSON}", "stacktrace": ["%replace{ %replace{%ex}{[",\\\\]}{}}{[\r\n]+\s*}{","}"]}%n' />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="3"/>
+        </RollingFile>
+
+        <!-- Adapter appender -->
+        <RollingFile name="adapterLogFile" fileName="logs/adapter.log" filePattern="logs/adapter-%d{MM-dd-yyyy}.log">
+            <PatternLayout pattern='{ "appName":"${sys:application.name}", "appVersion":"${sys:application.version}", "level":"%level", "time":"%d{ISO8601}", "thread":"%t", "transactionId":"%mdc{transactionId}", "tcad":"%mdc{tcad}", "tscid":"%mdc{tscid}", %m }%n' />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="3"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+<!--            <AppenderRef ref="default"/>-->
+            <AppenderRef ref="serviceLogFile"/>
+        </Root>
+        <Logger name="com.teliacompany.webflux.request.log.DefaultRequestLogger" level="info" additivity="false">
+            <AppenderRef ref="adapterLogFile"/>
+        </Logger>
+        <Logger name="org.springframework.boot.autoconfigure.web.reactive.error" level="info" additivity="false">
+            <AppenderRef ref="serviceErrorLogFile" />
+        </Logger>
+        <Logger name="com.teliacompany.webflux.error.reactive.ReactiveErrorAttributes" level="info" additivity="false">
+            <AppenderRef ref="serviceErrorLogFile" />
+        </Logger>
+        <Logger name="com.teliacompany.webflux.error.reactive.ReactiveWebExceptionHandler" level="info" additivity="false">
+            <AppenderRef ref="serviceErrorLogFile" />
+        </Logger>
+        <Logger name="com.teliacompany.tiberius.startup.AppNameLogger" level="info" additivity="false">
+            <AppenderRef ref="appName"/>
+            <AppenderRef ref="serviceLogFile"/>
+        </Logger>
+        <Logger name="com.teliacompany.tiberius.startup.Logger" level="info" additivity="false">
+            <AppenderRef ref="startup"/>
+            <AppenderRef ref="serviceLogFile"/>
+        </Logger>
+        <Logger name="com.teliacompany.tiberius.test.Logger" level="info" additivity="false">
+            <AppenderRef ref="startup"/>
+            <AppenderRef ref="serviceLogFile"/>
+        </Logger>
+    </Loggers>
+</Configuration>

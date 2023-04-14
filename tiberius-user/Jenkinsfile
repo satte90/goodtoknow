@@ -1,0 +1,128 @@
+library 'springfield-pipeline-steps_v2'
+
+// e.g a project name or team name
+String project = "augustus"
+// name of the app
+String appName = "tiberius-user"
+
+// Required by ISMs, either "backend" or "frontend"
+String releaseType = "backend"
+
+String deployNamespace = "tse"
+
+springfieldPipeline {
+    maven = [
+        junitReports: "server/target/surefire-reports/*.xml",
+        cucumberReports: "server/target/cucumber-report/",
+        javaVersion: '11',
+        profiles: ["cicd"],
+        uploadModules: true,
+        promoteOnBranch: /master/,
+        autoSetVersions: false
+    ]
+
+    images = [
+        [
+            dockerRepo: project,
+            name: appName,
+            helmVariable: "global.ci.image", // this will be injected into your chart templates
+            dockerContext: "./server"
+        ]
+    ]
+
+    chart = [
+        path: "./chart/"+appName,
+        repository: project,
+        generateVersionOnBranch: /.*/,
+        updateDependencies: true
+    ]
+
+    deploy = [
+        // Declare all value files that you want to use here
+        valuePresets: [
+            [
+                name: "dev",
+                filePath: "./chart/values-dev.yaml"
+            ],
+            [
+                name: "sit",
+                filePath: "./chart/values-sit.yaml"
+            ],
+            [
+                name: "at",
+                filePath: "./chart/values-at.yaml"
+            ],
+            [
+                name: "beta",
+                filePath: "./chart/values-beta.yaml"
+            ],
+            [
+                name: "prod",
+                filePath: "./chart/values-prod.yaml"
+            ]
+        ],
+        clusters: [
+            [
+                clusterName: "test",
+                ask: false,
+                onBranch: /master/,
+                namespace: deployNamespace,
+                releaseName: appName+"-dev",
+                releaseType: releaseType,
+                valuePreset: "dev"
+            ],
+            [
+                clusterName: "test",
+                ask: true,
+                onBranch: /master/,
+                namespace: deployNamespace,
+                releaseName: appName+"-sit",
+                releaseType: releaseType,
+                valuePreset: "sit"
+            ],
+            [
+                clusterName: "test",
+                ask: true,
+                onBranch: /master/,
+                namespace: deployNamespace,
+                releaseName: appName+"-at",
+                releaseType: releaseType,
+                valuePreset: "at"
+            ],
+            [
+                clusterName: "production",
+                ask: true,
+                onBranch: /master/,
+                namespace: deployNamespace,
+                releaseName: appName+"-beta",
+                releaseType: releaseType,
+                valuePreset: "beta",
+            ],
+            [
+                clusterName: "production",
+                ask: true,
+                onBranch: /master/,
+                namespace: deployNamespace,
+                releaseName: appName,
+                releaseType: releaseType,
+                valuePreset: "prod",
+            ]
+        ]
+    ]
+
+    notifications = [
+        personal: [
+            onFail: false,
+            onRegression: true, // overrides "onFail" if regression
+            onSuccess: false
+        ],
+        channels: [
+            "#brutus-builds": [
+                platform: "slack",
+                onFail: true,
+                onRegression: true,
+                onSuccess: true
+            ]
+        ]
+    ]
+}

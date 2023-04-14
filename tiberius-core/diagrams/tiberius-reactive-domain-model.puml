@@ -1,0 +1,46 @@
+@startuml
+
+package "Tiberius Core Parent" {
+    [Parent Server] as rps
+    [Base Server] as rbs
+    [Dep Mngmnt] as depman
+    [Base Utils] as rbutils
+    [Base Test] as rbutils
+}
+[Request Webflux Starter] as req_webflux
+[Error Webflux Starter] as err_webflux
+[Jackson Webflux Starter] as jack_webflux
+
+[ApiMarket4J Core] as a4j_core
+[ApiMarket4J C2B Client] as a4j_c2b
+
+package "Tiberius Services" {
+    [Reactive Poc Server 1/2] as poc
+    [Tiberius Assets] as tib_assets
+    [Tiberius Products] as tib_products
+}
+
+[tib_products] ..> rps : parent
+[tib_assets] ..> rps : parent
+[poc] ..> rps : parent
+[rps] -> rbs
+[rbs] ..> req_webflux
+[rbs] ..> err_webflux
+[rbs] ..> jack_webflux
+[rbs] ..> a4j_core
+[a4j_c2b] ..> a4j_core : parent
+[tib_assets] -> a4j_c2b
+
+note left of [rbs]
+  Contains all base logic for tiberius microservices
+  such as:
+  • @TiberiusApplication annotation
+  • Auth config and auth filter for endpoints
+  • Dependencies needed for servers
+end note
+
+note bottom of [req_webflux]
+  Contains logic for processor and web client
+end note
+
+@enduml

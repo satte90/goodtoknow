@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.teliacompany.tiberius.base.hazelcast.config.TiberiusHazelcastAutoConfiguration,\
+  com.teliacompany.tiberius.base.hazelcast.exception.HazelcastErrorHandler

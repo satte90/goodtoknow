@@ -1,0 +1,28 @@
+@startuml
+skinparam monochrome true
+
+participant TiberiusJwtAuthenticationManager as jam
+participant DefaultPublicKeyProvider as pkp
+participant TiberiusUserAuthClient as c
+participant TiberiusAuthKeyUtils as au
+participant tiberius_user_auth as tua
+
+== key cached ==
+autonumber
+
+jam -> pkp: getPublicKey(keyId)
+pkp -> jam: publicKey
+
+autonumber
+== key not cached ==
+jam -> pkp: getPublicKey(keyId)
+pkp -> c: getKey(keyId)
+c -> tua: GET: signingkeys/{id}
+tua -> c: public base64 encoded key
+c -> pkp: base64Key
+pkp -> au: convertPublicKey(base64Key)
+au -> pkp: PublicKey
+pkp -> pkp: cache key
+pkp -> jam: PublicKey
+
+@enduml

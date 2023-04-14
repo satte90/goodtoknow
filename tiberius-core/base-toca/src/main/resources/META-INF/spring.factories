@@ -1,0 +1,5 @@
+org.springframework.context.ApplicationListener=\
+  com.teliacompany.tiberius.base.toca.app.TocaEnvPreparedEvent
+
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.teliacompany.tiberius.base.toca.app.TiberiusTocaAutoConfiguration

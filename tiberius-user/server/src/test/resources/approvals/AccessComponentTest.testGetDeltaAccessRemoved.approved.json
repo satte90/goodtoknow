@@ -1,0 +1,22 @@
+{
+  "Delta After Create": {
+    "delta": [
+      {
+        "accessGranted": true,
+        "expiresAt": 1607427785000,
+        "tcad": "tcad_testGetDeltaAccessRemoved"
+      }
+    ],
+    "timestamp": 1607427781000
+  },
+  "Delta After Delete": {
+    "delta": [
+      {
+        "accessGranted": false,
+        "expiresAt": 1607427785000,
+        "tcad": "tcad_testGetDeltaAccessRemoved"
+      }
+    ],
+    "timestamp": 1607427783000
+  }
+}

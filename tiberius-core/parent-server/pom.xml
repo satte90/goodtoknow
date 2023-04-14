@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.5</version> <!-- Should match version set in tiberius-dependency-management -->
+        <relativePath/>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.teliacompany.tiberius</groupId>
+    <artifactId>tiberius-parent-server</artifactId>
+    <version>4.5.14-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>Tiberius :: Parent :: Server</name>
+    <!-- The description is exported to build-info.properties, and then used in swagger description -->
+    <description>Override description in server/pom.xml</description>
+
+    <properties>
+        <!-- Build plugins versions -->
+        <java.version>11</java.version>
+        <maven.compiler.release>11</maven.compiler.release>
+
+        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+        <spotify.docker.plugin.version>1.2.2</spotify.docker.plugin.version>
+        <bumper.version>2.1.3</bumper.version>
+        <surefire.version>3.0.0-M5</surefire.version>
+
+        <!-- Toca build properties -->
+        <!-- This is a build property. Activating this will enable the toca profile and include the base-toca dependency -->
+        <toca.build.default.enabled>false</toca.build.default.enabled>
+
+        <!-- Bumper settings -->
+        <!-- Skip bumper check if tests are skipped - bumper will not run in jenkins compile as it sets skipTests -->
+        <bumper.maven.central.enabled>true</bumper.maven.central.enabled>
+        <bumper.silent>false</bumper.silent>
+        <bumper.skipBumpCheck>false</bumper.skipBumpCheck>
+
+        <!-- Runtime variables. -->
+        <!-- spring.environment.local is by default false. Overridden to true if local profile is used -->
+        <!-- spring.environment.profile is by default dev. Overridden to dev/sit/at/bet/prod depending on profile -->
+        <!-- -Plocal should never set the spring.environment.profile, thus it will be dev if no other profile is specified -->
+        <spring.environment.local>false</spring.environment.local>
+        <spring.environment.profile>dev</spring.environment.profile>
+        <jvm.args.debug/>
+        <jvm.args.mem>-Xms256m -Xmx512m</jvm.args.mem>
+
+        <!-- Debug -->
+        <debug.port>5005</debug.port>
+        <debug.suspend>n</debug.suspend>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.teliacompany.tiberius</groupId>
+                <artifactId>tiberius-dependency-management</artifactId>
+                <version>4.5.14-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- Dependencies always (with no exceptions!) needed by tiberius servers -->
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+
+        <!-- Spring boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-client</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <spring.environment.local>true</spring.environment.local>
+                <jvm.args.debug>-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=${debug.port}</jvm.args.debug>
+                <jvm.args.mem>-Xms128m -Xmx256m</jvm.args.mem>
+            </properties>
+        </profile>
+        <profile>
+            <id>cicd</id>
+            <properties>
+                <bumper.maven.central.enabled>false</bumper.maven.central.enabled>
+                <bumper.skipBumpCheck>true</bumper.skipBumpCheck>
+                <bumper.silent>true</bumper.silent>
+            </properties>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <spring.environment.profile>dev</spring.environment.profile>
+                <jvm.args.mem>-Xms256m -Xmx512m</jvm.args.mem>
+                <bumper.maven.central.enabled>false</bumper.maven.central.enabled>
+                <bumper.skipBumpCheck>true</bumper.skipBumpCheck>
+            </properties>
+        </profile>
+        <profile>
+            <id>sit</id>
+            <properties>
+                <spring.environment.profile>sit</spring.environment.profile>
+                <jvm.args.mem>-Xms256m -Xmx512m</jvm.args.mem>
+                <bumper.maven.central.enabled>false</bumper.maven.central.enabled>
+                <bumper.skipBumpCheck>true</bumper.skipBumpCheck>
+            </properties>
+        </profile>
+        <profile>
+            <id>at</id>
+            <properties>
+                <spring.environment.profile>at</spring.environment.profile>
+                <jvm.args.mem>-Xms256m -Xmx512m</jvm.args.mem>
+                <bumper.maven.central.enabled>false</bumper.maven.central.enabled>
+                <bumper.skipBumpCheck>true</bumper.skipBumpCheck>
+            </properties>
+        </profile>
+        <profile>
+            <id>beta</id>
+            <properties>
+                <spring.environment.profile>beta</spring.environment.profile>
+                <jvm.args.mem>-Xms256m -Xmx512m</jvm.args.mem>
+                <bumper.maven.central.enabled>false</bumper.maven.central.enabled>
+                <bumper.skipBumpCheck>true</bumper.skipBumpCheck>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <spring.environment.profile>prod</spring.environment.profile>
+                <jvm.args.mem>-Xms256m -Xmx512m</jvm.args.mem>
+                <bumper.maven.central.enabled>false</bumper.maven.central.enabled>
+                <bumper.skipBumpCheck>true</bumper.skipBumpCheck>
+            </properties>
+        </profile>
+        <profile>
+            <id>debug</id>
+            <properties>
+                <jvm.args.debug>-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=${debug.suspend},address=${debug.port}</jvm.args.debug>
+            </properties>
+        </profile>
+        <profile>
+            <id>toca</id>
+            <activation>
+                <file>
+                    <exists></exists>
+                </file>
+                <property>
+                    <name>toca.build.default.enabled</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>com.teliacompany.tiberius</groupId>
+                    <artifactId>tiberius-base-toca</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+    <build>
+        <resources>
+            <!-- Add generated resources, e.g. dependencies.json generated by bumper plugin -->
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/application*.yml</include>
+                    <include>**/application*.yaml</include>
+                    <include>**/application*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <excludes>
+                    <exclude>**/application*.yml</exclude>
+                    <exclude>**/application*.yaml</exclude>
+                    <exclude>**/application*.properties</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>${project.build.directory}/generated-resources</directory>
+            </resource>
+        </resources>
+        <finalName>service</finalName>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <configuration>
+                        <environmentVariables>
+                            <!-- If set to true tiberius runner will add local profile to active profiles -->
+                            <spring.environment.local>${spring.environment.local}</spring.environment.local>
+                        </environmentVariables>
+                        <jvmArguments>
+                            ${jvm.args.debug}
+                            ${jvm.args.mem}
+                            --add-modules java.se
+                            --add-exports java.base/jdk.internal.ref=ALL-UNNAMED
+                            --add-opens java.base/java.lang=ALL-UNNAMED
+                            --add-opens java.base/java.nio=ALL-UNNAMED
+                            --add-opens java.base/sun.nio.ch=ALL-UNNAMED
+                            --add-opens java.management/sun.management=ALL-UNNAMED
+                            --add-opens jdk.management/com.ibm.lang.management.internal=ALL-UNNAMED
+                            --add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED
+                        </jvmArguments>
+                        <profiles>
+                            <profile>${spring.environment.profile}</profile>
+                        </profiles>
+                        <additionalProperties>
+                            <description>${project.description}</description>
+                        </additionalProperties>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>build-info</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven.compiler.plugin.version}</version>
+                    <configuration>
+                        <release>${maven.compiler.release}</release>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${spotify.docker.plugin.version}</version>
+                    <configuration>
+                        <imageName>docker-prod.dc.teliacompany.net/tse/${project.artifactId}</imageName>
+                        <dockerDirectory>${project.basedir}/src/docker</dockerDirectory>
+                        <forceTags>true</forceTags>
+                        <imageTags>
+                            <imageTag>${project.version}</imageTag>
+                            <imageTag>latest</imageTag>
+                        </imageTags>
+                        <resources>
+                            <resource>
+                                <targetPath>/</targetPath>
+                                <directory>${project.basedir}</directory>
+                                <includes>
+                                    <include>Dockerfile</include>
+                                </includes>
+                            </resource>
+                            <resource>
+                                <targetPath>/src/docker</targetPath>
+                                <directory>${project.basedir}/src/docker</directory>
+                                <includes>
+                                    <include>start.sh</include>
+                                </includes>
+                            </resource>
+                            <resource>
+                                <targetPath>/target</targetPath>
+                                <directory>${project.build.directory}/</directory>
+                                <includes>
+                                    <include>${project.build.finalName}.jar</include>
+                                </includes>
+                            </resource>
+                            <!-- Add generated resources, e.g. dependencies.json generated by bumper plugin -->
+                            <resource>
+                                <targetPath>/target/generated-resources</targetPath>
+                                <directory>${project.build.directory}/generated-resources/</directory>
+                                <includes>
+                                    <include>dependencies.jar</include>
+                                </includes>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${surefire.version}</version>
+                    <configuration>
+                        <argLine>
+                            -Dfile.encoding=UTF-8
+                            --add-modules java.se
+                            --add-exports java.base/jdk.internal.ref=ALL-UNNAMED
+                            --add-opens java.base/java.lang=ALL-UNNAMED
+                            --add-opens java.base/java.nio=ALL-UNNAMED
+                            --add-opens java.base/sun.nio.ch=ALL-UNNAMED
+                            --add-opens java.management/sun.management=ALL-UNNAMED
+                            --add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED
+                        </argLine>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>1.6.0</version>
+                    <executions>
+                        <execution>
+                            <id>BusinessRulePreProcessor</id>
+                            <phase>compile</phase>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                            <configuration>
+                                <mainClass>com.teliacompany.tiberius.base.businessrules.preprocessor.Main</mainClass>
+                                <arguments>
+                                    <argument>
+                                        ${project.basedir}
+                                    </argument>
+                                </arguments>
+                                <cleanupDaemonThreads>false</cleanupDaemonThreads>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>com.teliacompany.bumper</groupId>
+                <artifactId>bumper-maven-plugin</artifactId>
+                <version>${bumper.version}</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mavenCentralEnabled>${bumper.maven.central.enabled}</mavenCentralEnabled>
+                    <silent>${bumper.silent}</silent>
+                    <skipBumpCheck>${bumper.skipBumpCheck}</skipBumpCheck>
+                    <ignoreGroupIds>org.junit.jupiter</ignoreGroupIds>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-generated-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/classes</outputDirectory>
+                            <propertiesEncoding>${project.build.sourceEncoding}</propertiesEncoding>
+                            <includeEmptyDirs>true</includeEmptyDirs>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/target/generated-resources/</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+
+            </plugin>
+        </plugins>
+    </build>
+</project>

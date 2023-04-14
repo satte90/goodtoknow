@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.teliacompany.tiberius</groupId>
+    <artifactId>tiberius-reactor</artifactId>
+    <version>4.5.14-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Tiberius :: Reactor</name>
+    <description>Reactor pom for tiberius</description>
+
+    <properties>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
+
+        <bumper.version>2.1.2</bumper.version>
+        <bumper.maven.central.enabled>true</bumper.maven.central.enabled>
+        <bumper.skip>false</bumper.skip>
+        <bumper.silent>false</bumper.silent>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <modules>
+        <module>dependency-management</module>
+        <module>base-api</module>
+        <module>base-utils</module>
+        <module>base-hazelcast</module>
+        <module>base-businessrules</module>
+        <module>base-mongodb</module>
+        <module>base-toca</module>
+        <module>base-test</module>
+        <module>parent-client</module>
+        <module>parent-server</module>
+        <module>base-server</module>
+    </modules>
+
+    <profiles>
+        <profile>
+            <id>cicd</id>
+            <properties>
+                <bumper.maven.central.enabled>false</bumper.maven.central.enabled>
+                <bumper.skip>true</bumper.skip>
+                <bumper.silent>true</bumper.silent>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <release>11</release>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <!-- Make sure submodules is affected by mvn-version set -->
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>versions-maven-plugin</artifactId>
+                    <version>${versions-maven-plugin.version}</version>
+                    <configuration>
+                        <processAllModules>true</processAllModules>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.8.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.teliacompany.bumper</groupId>
+                    <artifactId>bumper-maven-plugin</artifactId>
+                    <version>${bumper.version}</version>
+                    <executions>
+                        <execution>
+                            <phase>compile</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <mavenCentralEnabled>${bumper.maven.central.enabled}</mavenCentralEnabled>
+                        <skip>${bumper.skip}</skip>
+                        <silent>${bumper.silent}</silent>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <!-- Add toca repository for Jenkins builder, once this does not have to be built by Jenkins this can be removed -->
+        <repository>
+            <snapshots/>
+            <id>toca-releases</id>
+            <name>toca-releases</name>
+            <url>https://jfrog.teliacompany.io/artifactory/toca-mvn-releases-local</url>
+        </repository>
+    </repositories>
+</project>

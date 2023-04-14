@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.teliacompany.tiberius</groupId>
+        <artifactId>tiberius-parent-server</artifactId>
+        <version>4.5.7</version>
+        <relativePath/>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.teliacompany.tiberius.user</groupId>
+    <artifactId>tiberius-user-server</artifactId>
+    <version>1.4.15-SNAPSHOT</version>
+    <name>Tiberius User</name>
+    <packaging>jar</packaging>
+
+    <description>
+        Service for storing role and retailer data for Our Telia users
+    </description>
+
+    <properties>
+        <ldap-webflux-starter.version>1.1.6</ldap-webflux-starter.version>
+    </properties>
+
+    <dependencies>
+        <!-- Base server -->
+        <dependency>
+            <groupId>com.teliacompany.tiberius</groupId>
+            <artifactId>tiberius-base-server</artifactId>
+        </dependency>
+
+        <!-- Our own client -->
+        <dependency>
+            <groupId>com.teliacompany.tiberius.user</groupId>
+            <artifactId>tiberius-user-client</artifactId>
+            <version>1.4.15-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.teliacompany</groupId>
+            <artifactId>ldap-webflux-starter</artifactId>
+            <version>${ldap-webflux-starter.version}</version>
+        </dependency>
+
+        <!-- Tiberius base utils -->
+        <dependency>
+            <groupId>com.teliacompany.tiberius</groupId>
+            <artifactId>tiberius-base-utils</artifactId>
+        </dependency>
+
+        <!-- Tiberius base mongodb -->
+        <dependency>
+            <groupId>com.teliacompany.tiberius</groupId>
+            <artifactId>tiberius-base-mongodb</artifactId>
+        </dependency>
+
+        <!-- Tiberius base hazelcast -->
+        <dependency>
+            <groupId>com.teliacompany.tiberius</groupId>
+            <artifactId>tiberius-base-hazelcast</artifactId>
+        </dependency>
+
+        <!-- Test -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.teliacompany.tiberius</groupId>
+            <artifactId>tiberius-base-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

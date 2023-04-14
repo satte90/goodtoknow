@@ -1,0 +1,8 @@
+org.springframework.context.ApplicationListener=\
+  com.teliacompany.tiberius.base.server.event.TiberiusEnvPreparedEvent,\
+  com.teliacompany.tiberius.base.server.event.TiberiusEnvPreparedSummaryEvent,\
+  com.teliacompany.tiberius.base.server.event.TiberiusContextInitializedEvent,\
+  com.teliacompany.tiberius.base.server.event.TiberiusFailedEvent
+
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.teliacompany.tiberius.base.server.config.ConfigReactor

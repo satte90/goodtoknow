@@ -1,0 +1,55 @@
+@startuml
+skinparam ParticipantPadding 20
+skinparam BoxPadding 10
+
+participant "External Client\nGUI" as e
+box "Tiberius Component" #fcfcfc
+participant "Controller" as c
+participant "Request Processor" as rp
+participant "Service" as s
+participant "Converter" as con
+participant "Integration" as i
+participant "Webflux Starter\nWeb Client" as wc
+end box
+participant "External System" as x
+
+activate x
+activate e
+e -> c: Http Request
+activate c
+c -> rp: process(HttpRequest, callback)
+activate rp
+rp -> rp: pre process (convert, log etc)
+rp -> s: callback.call(apiModel)
+activate s
+s -> con: convert(apiModel)
+activate con
+con -> s: int.model
+deactivate con
+s -> s: doStuff()
+s -> i: requestSomething()
+activate i
+i -> wc: GET/POST/PUT...(extApiModel)
+activate wc
+wc -> wc: preProcess (convert, log etc)
+wc -> x: GET/POST/PUT...(json/string)
+...Time goes by... ...
+x -> wc: json/string response
+wc -> wc: post process (log, convert)
+wc -> i: ext.apiModel
+deactivate wc
+i -> s: ext.apiModel
+deactivate i
+s -> con: convert(extApiModel)
+activate con
+con -> s: apiModel
+deactivate con
+s -> rp: Mono<ApiModel>
+deactivate s
+rp -> rp: post process
+rp -> c: Mono<ResponseEntity<Object>>
+deactivate rp
+c -> e: Http Response
+deactivate c
+
+@enduml

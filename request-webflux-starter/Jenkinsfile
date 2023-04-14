@@ -1,0 +1,29 @@
+library 'springfield-pipeline-steps_v2'
+
+springfieldPipeline {
+    maven = [
+        javaVersion: '11',
+        profiles: ["cicd"],
+        junitReports: "*/target/surefire-reports/*.xml",
+        cucumberReports: "*/target/cucumber-report/",
+        uploadModules: true,
+        promoteOnBranch: /master/,
+        autoSetVersions: false
+    ]
+
+     notifications = [
+        personal: [
+            onFail: false,
+            onRegression: true, // overrides "onFail" if regression
+            onSuccess: false
+        ],
+        channels: [
+            "#brutus-builds": [
+                platform: "slack",
+                onFail: true,
+                onRegression: true,
+                onSuccess: true
+            ]
+        ]
+    ]
+}

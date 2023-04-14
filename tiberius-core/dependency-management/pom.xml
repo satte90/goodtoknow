@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.teliacompany.tiberius</groupId>
+        <artifactId>tiberius-reactor</artifactId>
+        <version>4.5.14-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>tiberius-dependency-management</artifactId>
+    <packaging>pom</packaging>
+
+    <name>Tiberius :: Dependency Management</name>
+    <description>Dependency management for Tiberius</description>
+
+    <properties>
+        <!-- Spring versions -->
+        <!-- Should match parent version -->
+        <spring-boot.version>2.7.5</spring-boot.version>
+        <spring-security.version>5.6.2</spring-security.version>
+
+        <!-- Dependencies versions -->
+        <error-webflux-starter.version>3.2.2</error-webflux-starter.version>
+        <jackson-webflux-starter.version>2.2.5</jackson-webflux-starter.version>
+        <request-webflux-starter.version>3.4.2</request-webflux-starter.version>
+
+        <jackson.version>2.13.0</jackson.version>
+
+        <apache-commons-lang3.version>3.12.0</apache-commons-lang3.version>
+        <commons-io.version>2.11.0</commons-io.version>
+        <commons-text.version>1.10.0</commons-text.version>
+
+        <apimarket4j.version>2.4.7</apimarket4j.version>
+        <apigee4j.version>1.2.7</apigee4j.version>
+        <spock4j.version>1.1.33</spock4j.version>
+
+        <augustus-headers-constants.version>1.0.12</augustus-headers-constants.version>
+        <tiberius-crypto.version>2.1.2</tiberius-crypto.version>
+        <tiberius-user-client.version>1.4.11</tiberius-user-client.version>
+        <tiberius-user-auth-client.version>1.2.19</tiberius-user-auth-client.version>
+        <jjwt.version>0.11.2</jjwt.version>
+
+        <!-- Use same hazelcast version as defined in spring-boot-parent -->
+        <hazelcast.version>4.2.4</hazelcast.version>
+        <hazelcast-kubernetes.version>2.2.3</hazelcast-kubernetes.version>
+
+        <micrometer.version>1.9.5</micrometer.version>
+        <log4j.version>2.19.0</log4j.version>
+
+        <!-- MongoDB -->
+        <mongo-java-driver.version>3.12.10</mongo-java-driver.version>
+        <!-- https://github.com/bwaldvogel/mongo-java-server -->
+        <dwaldvogel-mongo.version>1.39.0</dwaldvogel-mongo.version>
+        <mongodb-driver-reactivestreams.version>4.4.0</mongodb-driver-reactivestreams.version>
+
+        <springdoc-openapi-webflux-ui.version>1.6.6</springdoc-openapi-webflux-ui.version>
+
+        <reactor-core.version>3.4.24</reactor-core.version>
+        <reactor-extra.version>3.4.5</reactor-extra.version>
+
+        <aws-sdk.version>2.17.141</aws-sdk.version>
+
+        <reflections.version>0.10.2</reflections.version>
+
+        <reactor-kafka.version>1.3.10</reactor-kafka.version>
+        <spring-kafka.version>2.8.3</spring-kafka.version>
+
+        <!-- Test dependencies versions -->
+        <junit-jupiter.version>5.8.1</junit-jupiter.version>
+        <mockito.version>4.1.0</mockito.version>
+        <wiremock.version>2.27.2</wiremock.version>
+        <approvaltests.version>12.3.2</approvaltests.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <!-- Dependency management for server dependencies which is mostly needed -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- Spring -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter</artifactId>
+                <version>${spring-boot.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-webflux</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-actuator</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-log4j2</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-oauth2-client</artifactId>
+                <version>${spring-security.version}</version>
+            </dependency>
+
+            <!-- Tiberius Base -->
+            <!-- Base api -->
+            <dependency>
+                <groupId>com.teliacompany.tiberius</groupId>
+                <artifactId>tiberius-base-api</artifactId>
+                <version>4.5.14-SNAPSHOT</version>
+            </dependency>
+
+            <!-- Base hazelcast -->
+            <dependency>
+                <groupId>com.teliacompany.tiberius</groupId>
+                <artifactId>tiberius-base-hazelcast</artifactId>
+                <version>4.5.14-SNAPSHOT</version>
+            </dependency>
+
+            <!-- Base business rules -->
+            <dependency>
+                <groupId>com.teliacompany.tiberius</groupId>
+                <artifactId>tiberius-base-businessrules</artifactId>
+                <version>4.5.14-SNAPSHOT</version>
+            </dependency>
+
+            <!-- Base mongodb -->
+            <dependency>
+                <groupId>com.teliacompany.tiberius</groupId>
+                <artifactId>tiberius-base-mongodb</artifactId>
+                <version>4.5.14-SNAPSHOT</version>
+            </dependency>
+
+            <!-- Base server -->
+            <dependency>
+                <groupId>com.teliacompany.tiberius</groupId>
+                <artifactId>tiberius-base-server</artifactId>
+                <version>4.5.14-SNAPSHOT</version>
+            </dependency>
+
+            <!-- Base toca -->
+            <dependency>
+                <groupId>com.teliacompany.tiberius</groupId>
+                <artifactId>tiberius-base-toca</artifactId>
+                <version>4.5.14-SNAPSHOT</version>
+            </dependency>
+
+            <!-- Base Utils -->
+            <dependency>
+                <groupId>com.teliacompany.tiberius</groupId>
+                <artifactId>tiberius-base-utils</artifactId>
+                <version>4.5.14-SNAPSHOT</version>
+            </dependency>
+
+            <!-- Base Test -->
+            <dependency>
+                <groupId>com.teliacompany.tiberius</groupId>
+                <artifactId>tiberius-base-test</artifactId>
+                <version>4.5.14-SNAPSHOT</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- AWS -->
+            <dependency>
+                <groupId>software.amazon.awssdk</groupId>
+                <artifactId>secretsmanager</artifactId>
+                <version>${aws-sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>software.amazon.awssdk</groupId>
+                <artifactId>netty-nio-client</artifactId>
+                <version>${aws-sdk.version}</version>
+            </dependency>
+
+            <!-- Jackson Starter -->
+            <dependency>
+                <groupId>com.teliacompany.webflux</groupId>
+                <artifactId>jackson-webflux-starter</artifactId>
+                <version>${jackson-webflux-starter.version}</version>
+            </dependency>
+
+            <!-- Error Starter -->
+            <dependency>
+                <groupId>com.teliacompany.webflux</groupId>
+                <artifactId>error-webflux-starter</artifactId>
+                <version>${error-webflux-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.teliacompany.webflux</groupId>
+                <artifactId>error-webflux-starter-api</artifactId>
+                <version>${error-webflux-starter.version}</version>
+            </dependency>
+
+            <!-- Request webflux starter -->
+            <dependency>
+                <groupId>com.teliacompany.webflux</groupId>
+                <artifactId>request-webflux-starter</artifactId>
+                <version>${request-webflux-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.teliacompany.webflux</groupId>
+                <artifactId>request-webflux-starter-mock</artifactId>
+                <version>${request-webflux-starter.version}</version>
+            </dependency>
+
+            <!-- ApiMarket4J -->
+            <dependency>
+                <groupId>com.teliacompany.apimarket4j</groupId>
+                <artifactId>apimarket4j-core</artifactId>
+                <version>${apimarket4j.version}</version>
+            </dependency>
+
+            <!-- Apigee4j -->
+            <dependency>
+                <groupId>com.teliacompany.apigee4j</groupId>
+                <artifactId>apigee4j-core</artifactId>
+                <version>${apigee4j.version}</version>
+            </dependency>
+
+            <!-- Spock4J -->
+            <dependency>
+                <groupId>com.teliacompany.spock4j</groupId>
+                <artifactId>spock4j-core</artifactId>
+                <version>${spock4j.version}</version>
+            </dependency>
+
+            <!-- Tiberius Crypto -->
+            <dependency>
+                <groupId>com.teliacompany.tiberius.crypto</groupId>
+                <artifactId>tiberius-crypto-starter</artifactId>
+                <version>${tiberius-crypto.version}</version>
+            </dependency>
+
+            <!-- Tiberius User Client -->
+            <dependency>
+                <groupId>com.teliacompany.tiberius.user</groupId>
+                <artifactId>tiberius-user-client</artifactId>
+                <version>${tiberius-user-client.version}</version>
+            </dependency>
+
+            <!-- Tiberius User Auth Client -->
+            <dependency>
+                <groupId>com.teliacompany.tiberius.user.auth</groupId>
+                <artifactId>tiberius-user-auth-client</artifactId>
+                <version>${tiberius-user-auth-client.version}</version>
+            </dependency>
+
+            <!-- Spring Doc & Swagger -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-webflux-ui</artifactId>
+                <version>${springdoc-openapi-webflux-ui.version}</version>
+            </dependency>
+
+            <!-- Jackson -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jdk8</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.module</groupId>
+                <artifactId>jackson-module-parameter-names</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <!-- JJWT -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+
+            <!-- Hazelcast -->
+            <dependency>
+                <groupId>com.hazelcast</groupId>
+                <artifactId>hazelcast</artifactId>
+                <version>${hazelcast.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hazelcast</groupId>
+                <artifactId>hazelcast-spring</artifactId>
+                <version>${hazelcast.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hazelcast</groupId>
+                <artifactId>hazelcast-kubernetes</artifactId>
+                <version>${hazelcast-kubernetes.version}</version>
+            </dependency>
+
+            <!-- Apache Commons -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${apache-commons-lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-text</artifactId>
+                <version>${commons-text.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+
+            <!-- log4j2 web -->
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-web</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-jul</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-slf4j-impl</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+
+            <!-- Micrometer Prometheus registry  -->
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-registry-prometheus</artifactId>
+                <version>${micrometer.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-core</artifactId>
+                <version>${micrometer.version}</version>
+            </dependency>
+
+            <!-- Mongodb -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <!-- https://github.com/bwaldvogel/mongo-java-server -->
+            <dependency>
+                <groupId>de.bwaldvogel</groupId>
+                <artifactId>mongo-java-server</artifactId>
+                <version>${dwaldvogel-mongo.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mongodb</groupId>
+                <artifactId>mongodb-driver-reactivestreams</artifactId>
+                <version>${mongodb-driver-reactivestreams.version}</version>
+            </dependency>
+
+            <!-- Kafka  -->
+            <dependency>
+                <groupId>io.projectreactor.kafka</groupId>
+                <artifactId>reactor-kafka</artifactId>
+                <version>${reactor-kafka.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.kafka</groupId>
+                <artifactId>spring-kafka-test</artifactId>
+                <version>${spring-kafka.version}</version>
+            </dependency>
+
+            <!-- Reactor core -->
+            <dependency>
+                <groupId>io.projectreactor</groupId>
+                <artifactId>reactor-core</artifactId>
+                <version>${reactor-core.version}</version>
+            </dependency>
+
+            <!-- Reactor Extra -->
+            <dependency>
+                <groupId>io.projectreactor.addons</groupId>
+                <artifactId>reactor-extra</artifactId>
+                <version>${reactor-extra.version}</version>
+            </dependency>
+
+            <!-- Reflections -->
+            <dependency>
+                <groupId>org.reflections</groupId>
+                <artifactId>reflections</artifactId>
+                <version>${reflections.version}</version>
+            </dependency>
+
+            <!-- Test -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-test</artifactId>
+                <version>${spring-security.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>${junit-jupiter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-params</artifactId>
+                <version>${junit-jupiter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${junit-jupiter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>${junit-jupiter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.tomakehurst</groupId>
+                <artifactId>wiremock</artifactId>
+                <version>${wiremock.version}</version>
+            </dependency>
+            <!-- Approvals -->
+            <dependency>
+                <groupId>com.approvaltests</groupId>
+                <artifactId>approvaltests</artifactId>
+                <version>${approvaltests.version}</version>
+                <scope>compile</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

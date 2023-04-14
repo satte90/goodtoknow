@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.teliacompany.tiberius.user</groupId>
+    <artifactId>tiberius-user-client</artifactId>
+    <version>1.4.15-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>Tiberius User :: Client</name>
+    <parent>
+        <groupId>com.teliacompany.tiberius</groupId>
+        <artifactId>tiberius-parent-client</artifactId>
+        <version>4.5.7</version>
+        <relativePath/>
+    </parent>
+
+    <distributionManagement>
+        <repository>
+            <uniqueVersion>false</uniqueVersion>
+            <id>releases</id>
+            <url>https://jfrog.teliacompany.io/artifactory/toca-mvn-releases-local</url>
+            <layout>default</layout>
+        </repository>
+        <snapshotRepository>
+            <uniqueVersion>false</uniqueVersion>
+            <id>snapshots</id>
+            <url>https://jfrog.teliacompany.io/artifactory/toca-mvn-snapshots-local</url>
+            <layout>default</layout>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <release>11</release>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

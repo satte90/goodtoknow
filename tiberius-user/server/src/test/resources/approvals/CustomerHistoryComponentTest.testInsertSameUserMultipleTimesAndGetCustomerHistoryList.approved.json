@@ -1,0 +1,38 @@
+[
+  {
+    "identificationMethod": "TBA",
+    "role": "OURTELIA",
+    "tcad": "abc00",
+    "timestamp": 1607428140.000000000
+  },
+  {
+    "identificationMethod": "TBA",
+    "role": "TELEMARKETING",
+    "tcad": "abc00",
+    "timestamp": 1607428080.000000000
+  },
+  {
+    "identificationMethod": "TBA",
+    "role": "TELEMARKETING",
+    "tcad": "abc00",
+    "timestamp": 1607428020.000000000
+  },
+  {
+    "identificationMethod": "TBA",
+    "role": "TELEMARKETING",
+    "tcad": "abc00",
+    "timestamp": 1607427960.000000000
+  },
+  {
+    "identificationMethod": "TBA",
+    "role": "TELEMARKETING",
+    "tcad": "abc00",
+    "timestamp": 1607427900.000000000
+  },
+  {
+    "identificationMethod": "TBA",
+    "role": "TELEMARKETING",
+    "tcad": "abc00",
+    "timestamp": 1607427840.000000000
+  }
+]

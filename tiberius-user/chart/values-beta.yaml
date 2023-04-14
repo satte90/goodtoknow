@@ -1,0 +1,11 @@
+# THIS IS THE DEFAULT VALUE FILE
+# Values here are passed to the sub-chart named springfield-springboot
+springfield-springboot:
+  springProfilesActive:
+    - "beta"
+  ingress:
+    app:
+      rewriteTarget: /
+      hosts:
+        "k8slb01p.ddc.teliasonera.net":
+          - path: /beta/tiberius/user

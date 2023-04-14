@@ -1,0 +1,42 @@
+<Configuration status="info" name="example" packages="">
+    <Appenders>
+        <Console name="default" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern='{ "appName":"${sys:application.name}", "appVersion":"${sys:application.version}", "level":"%level", "time":"%d{ISO8601}", "thread":"%t", "transactionId":"%mdc{transactionId}", "loggerName":"%c{1.}", "tcad":"%mdc{tcad}", "tscid":"%mdc{tscid}", "message":"%enc{%m}{JSON}" }%n'/>
+        </Console>
+        <Console name="startup" target="SYSTEM_OUT">
+            <PatternLayout pattern="%m%n"/>
+        </Console>
+        <Console name="serviceError" target="SYSTEM_OUT">
+            <PatternLayout alwaysWriteExceptions="false"
+                           pattern='{ "appName":"${sys:application.name}", "appVersion":"${sys:application.version}", "level":"%level", "time":"%d{ISO8601}", "thread":"%t", "transactionId":"%mdc{transactionId}", "loggerName":"%c{1.}", "tcad":"%mdc{tcad}", "tscid":"%mdc{tscid}", "exception":"%enc{%ex{short}}{JSON}", "stacktrace": ["%replace{ %replace{%ex}{[",\\\\]}{}}{[\r\n]+\s*}{","}"]}%n'/>
+        </Console>
+        <Console name="adapter" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern='{ "appName":"${sys:application.name}", "appVersion":"${sys:application.version}", "level":"%level", "time":"%d{ISO8601}", "thread":"%t", "transactionId":"%mdc{transactionId}", "tcad":"%mdc{tcad}", "tscid":"%mdc{tscid}", %m }%n'/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="default"/>
+        </Root>
+        <Logger name="com.teliacompany.webflux.request.log.DefaultRequestLogger" level="info" additivity="false">
+            <AppenderRef ref="adapter"/>
+        </Logger>
+        <Logger name="org.springframework.boot.autoconfigure.web.reactive.error" level="info" additivity="false">
+            <AppenderRef ref="serviceError"/>
+        </Logger>
+        <Logger name="com.teliacompany.webflux.error.reactive.ReactiveErrorAttributes" level="info" additivity="false">
+            <AppenderRef ref="serviceError"/>
+        </Logger>
+        <Logger name="com.teliacompany.webflux.error.reactive.ReactiveWebExceptionHandler" level="info" additivity="false">
+            <AppenderRef ref="serviceError"/>
+        </Logger>
+        <Logger name="com.teliacompany.tiberius.startup.Logger" level="info" additivity="false">
+            <AppenderRef ref="startup"/>
+        </Logger>
+        <Logger name="com.teliacompany.tiberius.test.Logger" level="info" additivity="false">
+            <AppenderRef ref="startup"/>
+        </Logger>
+    </Loggers>
+</Configuration>

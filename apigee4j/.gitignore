@@ -1,0 +1,86 @@
+/target/
+/core/target/
+/archetype/target/classes/META-INF/
+/archetype/target/classes/archetype-resources/src/
+/archetype/target/classes/archetype-resources/Jenkinsfile
+/archetype/target/classes/archetype-resources/.gitignore
+/archetype/target/classes/archetype-resources/README.md
+/archetype/target/classes/archetype-resources/todo_then_remove_me_be4_commit.md
+/archetype/target/maven-archiver/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Should be ignored but once it wasn't and jenkins have registered that is shall bump a pom file in there and if it is ignored it cannot push it and fails promotion to artifactory...
+# archetype/target/classes/archetype-resources/pom.xml
+#/archetype/target/ <--- Cannot be ignored due to jenkins pipeline
+
+*.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### Visual Studio Code
+.vscode
+
+### NetBeans ###
+/nbproject/private/
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+logs/*
+
+### Linux ###
+*~
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
+
+### OSX ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk

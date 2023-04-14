@@ -1,0 +1,20 @@
+{
+  "authorizedRoles": [
+    "OURTELIA",
+    "RETAILER"
+  ],
+  "department": "the circus",
+  "firstName": "James",
+  "groups": [
+    "sissies",
+    "sis"
+  ],
+  "lastName": "Bond",
+  "retailer": {
+    "id": "TG9uZ0xpdmVUaGVRdWVlbg==",
+    "name": "MI6",
+    "role": "RETAILER"
+  },
+  "role": "OURTELIA",
+  "tcad": "agent007"
+}

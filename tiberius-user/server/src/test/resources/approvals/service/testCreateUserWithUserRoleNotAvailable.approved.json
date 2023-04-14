@@ -1,0 +1,12 @@
+{
+  "causeHttpStatus": null,
+  "causeMessage": null,
+  "causeSystem": null,
+  "causeTransactionId": null,
+  "extraAttributes": {},
+  "localizedMessage": "User does not have permission for role OURTELIA",
+  "message": "User does not have permission for role OURTELIA",
+  "stackTrace": [],
+  "status": "BAD_REQUEST",
+  "suppressed": []
+}

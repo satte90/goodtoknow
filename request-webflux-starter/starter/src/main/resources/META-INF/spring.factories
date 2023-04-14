@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.teliacompany.webflux.request.config.RequestWebfluxStarterAutoConfiguration,\
+  com.teliacompany.webflux.request.kafka.KafkaAutoConfiguration

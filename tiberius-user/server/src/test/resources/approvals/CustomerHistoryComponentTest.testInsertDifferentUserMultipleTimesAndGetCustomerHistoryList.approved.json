@@ -1,0 +1,32 @@
+[
+  {
+    "identificationMethod": "TBA",
+    "role": "UNKNOWN",
+    "tcad": "abc01",
+    "timestamp": 1607428080.000000000
+  },
+  {
+    "identificationMethod": "TBA",
+    "role": "UNKNOWN",
+    "tcad": "abc03",
+    "timestamp": 1607428020.000000000
+  },
+  {
+    "identificationMethod": "TBA",
+    "role": "UNKNOWN",
+    "tcad": "abc00",
+    "timestamp": 1607427960.000000000
+  },
+  {
+    "identificationMethod": "TBA",
+    "role": "UNKNOWN",
+    "tcad": "abc01",
+    "timestamp": 1607427900.000000000
+  },
+  {
+    "identificationMethod": "TBA",
+    "role": "UNKNOWN",
+    "tcad": "abc00",
+    "timestamp": 1607427840.000000000
+  }
+]

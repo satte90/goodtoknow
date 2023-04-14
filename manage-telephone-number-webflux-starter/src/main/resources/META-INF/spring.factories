@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.teliacompany.springfield.managetelephone.facade.config.ManageTelephoneNumberFacadeAutoConfiguration

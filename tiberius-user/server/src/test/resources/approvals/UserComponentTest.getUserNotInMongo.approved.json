@@ -1,0 +1,12 @@
+{
+  "authorizedRoles": [
+    "TELEMARKETING"
+  ],
+  "department": "dep",
+  "firstName": "fname2",
+  "groups": [
+    "memberof"
+  ],
+  "lastName": "lname2",
+  "tcad": "tcad4"
+}

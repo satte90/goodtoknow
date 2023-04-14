@@ -1,0 +1,18 @@
+{
+  "authorizedRoles": [
+    "TELEMARKETING"
+  ],
+  "department": "dep",
+  "firstName": "fname1",
+  "groups": [
+    "memberof"
+  ],
+  "lastName": "lname1",
+  "retailer": {
+    "id": "retailer123",
+    "name": "Retailer 123",
+    "role": "TELEMARKETING"
+  },
+  "role": "TELEMARKETING",
+  "tcad": "tcadMissingRetailerId"
+}

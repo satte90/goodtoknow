@@ -1,0 +1,4 @@
+org.springframework.context.ApplicationListener=\
+  com.teliacompany.tiberius.base.mongodb.config.TiberiusMongodbEnvironmentSetUp
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.teliacompany.tiberius.base.mongodb.config.TiberiusBaseMongodbAutoConfiguration

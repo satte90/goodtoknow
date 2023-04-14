@@ -1,0 +1,12 @@
+{
+  "causeHttpStatus": null,
+  "causeMessage": null,
+  "causeSystem": null,
+  "causeTransactionId": null,
+  "extraAttributes": {},
+  "localizedMessage": "User does not have permission for retailer TG9uZ0xpdmVUaGVRdWVlbg== with role RETAILER",
+  "message": "User does not have permission for retailer TG9uZ0xpdmVUaGVRdWVlbg== with role RETAILER",
+  "stackTrace": [],
+  "status": "BAD_REQUEST",
+  "suppressed": []
+}

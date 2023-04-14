@@ -1,0 +1,13 @@
+{
+  "applicationName": "tiberius-user",
+  "cause": {
+    "message": "N/A",
+    "system": "N/A"
+  },
+  "errorLink": "",
+  "httpStatus": 500,
+  "message": "Missing required field role or retailerId for user tcadMissingRetailerId",
+  "path": "http://localhost:8080/tiberius/user/tcad/tcadMissingRetailerId",
+  "timestamp": 0,
+  "transactionId": "tomtenisse2000000"
+}

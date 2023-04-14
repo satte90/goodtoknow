@@ -1,0 +1,12 @@
+{
+  "authorizedRoles": [
+    "ORDERMANAGEMENT"
+  ],
+  "department": "dep",
+  "firstName": "fname1",
+  "groups": [
+    "memberof"
+  ],
+  "lastName": "lname1",
+  "tcad": "tcad1"
+}
